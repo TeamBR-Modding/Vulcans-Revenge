@@ -1,0 +1,16 @@
+[
+{
+  "modid": "vulcansrevenge",
+  "name": "Vulcan's Revenge",
+  "description": "Harness the power of the gods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["pauljoda"],
+  "credits": "TeamBRModding team",
+  "logoFile": "/assets/vulcansrevenge/textures/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
