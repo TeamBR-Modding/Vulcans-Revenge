@@ -1,13 +1,23 @@
 package com.pauljoda.vulcansrevenge;
 
+import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
 import com.pauljoda.vulcansrevenge.common.CommonProxy;
+import com.pauljoda.vulcansrevenge.managers.EventManager;
 import com.pauljoda.vulcansrevenge.lib.Reference;
+import com.pauljoda.vulcansrevenge.managers.ToolManager;
+import com.pauljoda.vulcansrevenge.registry.VulcanRegistries;
 import com.teambr.nucleus.data.RegistrationData;
+import com.teambr.nucleus.helper.RegistrationHelper;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.registries.ForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
 /**
  * This file was created for VulcansRevenge
@@ -39,12 +49,35 @@ public class VulcansRevenge {
     )
     public static CommonProxy proxy;
 
-    @Mod.EventHandler
-    public static void preInit(FMLPreInitializationEvent event) { }
+    public static CreativeTabs tabVulcansRevenge = new CreativeTabs("vulcans_revenge:tools") {
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ToolManager.vulcanSword);
+        }
+    };
 
     @Mod.EventHandler
-    public static void init(FMLInitializationEvent event) { }
+    public static void preInit(FMLPreInitializationEvent event) {
+        RegistrationHelper.fillRegistrationData(event, registrationData);
+
+        // Create Registries
+        VulcanRegistries.SWORD_MODE_REGISTRY =
+                (ForgeRegistry<SwordMode>) new RegistryBuilder<SwordMode>()
+                        .setName(new ResourceLocation(Reference.MOD_ID, "sword_mode"))
+                        .setIDRange(1, Integer.MAX_VALUE - 1)
+                        .setType(SwordMode.class).create();
+
+        EventManager.registerEvents(event.getSide());
+        proxy.preInit(event);
+    }
 
     @Mod.EventHandler
-    public static void posInit(FMLPostInitializationEvent event) { }
+    public static void init(FMLInitializationEvent event) {
+        proxy.init(event);
+    }
+
+    @Mod.EventHandler
+    public static void posInit(FMLPostInitializationEvent event) {
+        proxy.postInit(event);
+    }
 }
