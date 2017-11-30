@@ -3,15 +3,23 @@ package com.pauljoda.vulcansrevenge.api.sword;
 import com.pauljoda.vulcansrevenge.api.VulcansRevengeAPI;
 import com.pauljoda.vulcansrevenge.lib.Reference;
 import com.teambr.nucleus.util.ClientUtils;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This file was created for VulcansRevenge
@@ -75,6 +83,40 @@ public abstract class SwordMode implements IForgeRegistryEntry<SwordMode> {
     /*******************************************************************************************************************
      * Sword Mode                                                                                                      *
      *******************************************************************************************************************/
+
+    /**
+     * Called when the stack updates, use for things that should be done each tick
+     * @param stack The sword stack
+     * @param worldIn The world
+     * @param entityIn The entity
+     * @param itemSlot The item slot
+     * @param isSelected if selected
+     */
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+
+    }
+
+    /**
+     * Called when the player right clicks with this mode enabled
+     * @param worldIn The world
+     * @param playerIn The player
+     * @param handIn The hand currently in
+     * @return Pass or not
+     */
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+    }
+
+    /**
+     * Used to get the tool tip info to provide
+     *
+     * Each object is one line, provide useful info here about the sword mode
+     * @return A list of strings to display
+     */
+    @SideOnly(Side.CLIENT)
+    public List<String> getToolTipInfo() {
+        return new ArrayList<>();
+    }
 
     /**
      * Texture path

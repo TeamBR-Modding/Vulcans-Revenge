@@ -1,7 +1,7 @@
 package com.pauljoda.vulcansrevenge.client;
 
 import com.pauljoda.vulcansrevenge.client.gui.GuiRadialMenu;
-import com.pauljoda.vulcansrevenge.common.tools.IRadialMenuProvider;
+import com.pauljoda.vulcansrevenge.api.client.IRadialMenuProvider;
 import com.pauljoda.vulcansrevenge.lib.Reference;
 import com.pauljoda.vulcansrevenge.managers.EventManager;
 import com.teambr.nucleus.util.ClientUtils;

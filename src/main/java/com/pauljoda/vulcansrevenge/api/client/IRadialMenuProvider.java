@@ -1,12 +1,13 @@
-package com.pauljoda.vulcansrevenge.common.tools;
+package com.pauljoda.vulcansrevenge.api.client;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This file was created for VulcansRevenge
@@ -53,4 +54,13 @@ public interface IRadialMenuProvider<T extends IForgeRegistryEntry<T>> {
      * @param entry The object clicked
      */
     void objectClicked(ItemStack stack, Object entry);
+
+    /**
+     * Gets the tip to display
+     * @param entry Entry
+     * @return  A tool tip list to disply on right side of screen
+     */
+    default List<String> getTooltip(Object entry) {
+        return new ArrayList<String>();
+    }
 }

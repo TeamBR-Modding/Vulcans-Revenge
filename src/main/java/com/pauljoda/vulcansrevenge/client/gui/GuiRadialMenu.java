@@ -1,7 +1,7 @@
 package com.pauljoda.vulcansrevenge.client.gui;
 
 import com.pauljoda.vulcansrevenge.client.KeybindHandler;
-import com.pauljoda.vulcansrevenge.common.tools.IRadialMenuProvider;
+import com.pauljoda.vulcansrevenge.api.client.IRadialMenuProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -87,6 +87,8 @@ public class GuiRadialMenu extends GuiScreen {
 
         boolean wasSelected = false;
 
+        // Gather information for display
+
         int seg = 0;
         for (Object obj : GameRegistry.findRegistry(menuProvider.getRegistryClass()).getValues()) {
             boolean mouseOverSection = distance <= maxRadius && (angle > totalDeg && angle < totalDeg + degPer);
@@ -139,6 +141,7 @@ public class GuiRadialMenu extends GuiScreen {
         GlStateManager.shadeModel(GL11.GL_FLAT);
         GlStateManager.enableTexture2D();
 
+        // Actually draw the things in the menu
         for(int[] pos : stringPosition) {
             int slot = pos[0];
             float xp = pos[1];
@@ -172,6 +175,30 @@ public class GuiRadialMenu extends GuiScreen {
                 fontRenderer.drawStringWithShadow(name, xsp, ysp, 0xFFFFFF);
             }
         }
+
+        // Draw Selected stack
+        // Might add this later, for now no
+        /**
+        if(currentSelected != null) {
+            ItemStack displayStack = menuProvider.getDisplayStackForEntry(currentSelected);
+            if(!displayStack.isEmpty()) {
+                RenderHelper.enableGUIStandardItemLighting();
+                GlStateManager.pushMatrix();
+
+                GlStateManager.translate(x + 130, y - 100, 2);
+                GlStateManager.scale(3, 3, 3);
+                Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(displayStack, 0, 0);
+
+                GlStateManager.popMatrix();
+                RenderHelper.disableStandardItemLighting();
+
+                fontRenderer.drawStringWithShadow(menuProvider.getDisplayNameForEntry(currentSelected),
+                        x + 145 - (fontRenderer.getStringWidth(menuProvider.getDisplayNameForEntry(currentSelected)) / 2),
+                        y - 45,
+                        menuProvider.getDisplayColorForEntry(currentSelected).getRGB());
+            }
+        }
+         **/
 
         GlStateManager.popMatrix();
     }

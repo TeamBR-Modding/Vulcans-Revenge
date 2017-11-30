@@ -13,9 +13,22 @@ itemGroup.vulcans_revenge:tools=Vulcan's Tools
 item.vulcansrevenge:item_vulcan_sword.name=Vulcan's Revenge
 
 vulcansrevenge:normal.displayName=Normal
+vulcansrevenge:normal.hitEffect=5 additional damage that bypasses armor
+vulcansrevenge:normal.rightClick=Fires a fireball if you have more than 8 hearts
+
 vulcansrevenge:heavy.displayName=Heavy
+vulcansrevenge:heavy.hitEffect=Deals massive damage, but uses a lot of power
+vulcansrevenge:normal.rightClick=Hits enemies all around you at a large power cost
+
 vulcansrevenge:frost.displayName=Frost
 vulcansrevenge:wither.displayName=Wither
+
+vulcansrevenge.owner.text=Owner:
+vulcansrevenge.unknown.text=Unknown
+vulcansrevenge.charge.text=Power Remaining:
+
+vulcansrevenge.hiteffect.text=Hit Effect:
+vulcansrevenge.rightClick.text=Right Click:
 
 #######################
 # Tile Entities
