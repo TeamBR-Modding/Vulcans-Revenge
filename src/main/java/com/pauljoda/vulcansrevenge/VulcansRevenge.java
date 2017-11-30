@@ -4,6 +4,7 @@ import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
 import com.pauljoda.vulcansrevenge.common.CommonProxy;
 import com.pauljoda.vulcansrevenge.managers.EventManager;
 import com.pauljoda.vulcansrevenge.lib.Reference;
+import com.pauljoda.vulcansrevenge.managers.PacketManager;
 import com.pauljoda.vulcansrevenge.managers.ToolManager;
 import com.pauljoda.vulcansrevenge.registry.VulcanRegistries;
 import com.teambr.nucleus.data.RegistrationData;
@@ -73,6 +74,10 @@ public class VulcansRevenge {
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event) {
+        // Init Network Packets
+        PacketManager.initPackets();
+
+        // Call proxies
         proxy.init(event);
     }
 

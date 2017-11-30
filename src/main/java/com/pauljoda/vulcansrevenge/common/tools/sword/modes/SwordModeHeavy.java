@@ -1,8 +1,12 @@
-package com.pauljoda.vulcansrevenge.common.sword;
+package com.pauljoda.vulcansrevenge.common.tools.sword.modes;
 
 import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.awt.*;
 
 /**
  * This file was created for VulcansRevenge
@@ -38,5 +42,35 @@ public class SwordModeHeavy extends SwordMode {
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player) {
         return true;
+    }
+
+    /**
+     * The base damage this mode does
+     *
+     * @return Damage done
+     */
+    @Override
+    public int getBaseDamage() {
+        return 40;
+    }
+
+    /**
+     * Get the amount to remove from speed
+     *
+     * @return -3.9 - 0 with -3.9 meaning its really, really slow
+     */
+    @Override
+    public float getAttackSpeed() {
+        return -3.5F;
+    }
+
+    /**
+     * Color associated with this mode
+     * @return The color of this mode
+     */
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Color getColor() {
+        return new Color(47, 0, 255);
     }
 }

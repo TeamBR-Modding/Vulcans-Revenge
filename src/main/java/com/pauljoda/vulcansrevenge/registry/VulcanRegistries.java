@@ -1,8 +1,10 @@
 package com.pauljoda.vulcansrevenge.registry;
 
 import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
-import com.pauljoda.vulcansrevenge.common.sword.SwordModeHeavy;
-import com.pauljoda.vulcansrevenge.common.sword.SwordModeNormal;
+import com.pauljoda.vulcansrevenge.common.tools.sword.modes.SwordModeFrost;
+import com.pauljoda.vulcansrevenge.common.tools.sword.modes.SwordModeHeavy;
+import com.pauljoda.vulcansrevenge.common.tools.sword.modes.SwordModeNormal;
+import com.pauljoda.vulcansrevenge.common.tools.sword.modes.SwordModeWither;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistry;
@@ -26,5 +28,7 @@ public class VulcanRegistries {
     public void registerSwordModes(RegistryEvent.Register<SwordMode> event) {
         event.getRegistry().register(new SwordModeNormal());
         event.getRegistry().register(new SwordModeHeavy());
+        event.getRegistry().register(new SwordModeFrost());
+        event.getRegistry().register(new SwordModeWither());
     }
 }

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
-import com.pauljoda.vulcansrevenge.common.sword.ItemVulcanSword;
+import com.pauljoda.vulcansrevenge.common.tools.sword.ItemVulcanSword;
 import com.pauljoda.vulcansrevenge.lib.Reference;
 import com.teambr.nucleus.client.ModelHelper;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -103,7 +102,7 @@ public class ModelVulcanSword implements IModel {
                 model.parent.texture = GameRegistry.findRegistry(SwordMode.class).containsKey(new ResourceLocation(modelName)) ? // Is valid?
                         GameRegistry.findRegistry(SwordMode.class).getValue(new ResourceLocation(modelName)).getTexturePath() :  // Use if valid
                         GameRegistry.findRegistry(SwordMode.class).getValue(new ResourceLocation("vulcansrevenge:normal")).getTexturePath(); // Default to normal if not
-                
+
                 Function<ResourceLocation, TextureAtlasSprite> textureGetter;
                 textureGetter = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
                 IBakedModel bakedModel = model.parent.bake(new SimpleModelState(model.transforms), model.format, textureGetter);

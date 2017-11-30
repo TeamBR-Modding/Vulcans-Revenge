@@ -2,6 +2,7 @@ package com.pauljoda.vulcansrevenge.api.sword;
 
 import com.pauljoda.vulcansrevenge.api.VulcansRevengeAPI;
 import com.pauljoda.vulcansrevenge.lib.Reference;
+import com.teambr.nucleus.util.ClientUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 
 /**
  * This file was created for VulcansRevenge
@@ -58,6 +60,18 @@ public abstract class SwordMode implements IForgeRegistryEntry<SwordMode> {
      */
     public abstract boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player);
 
+    /**
+     * The base damage this mode does
+     * @return Damage done
+     */
+    public abstract int getBaseDamage();
+
+    /**
+     * Get the amount to remove from speed
+     * @return -3.9 - 0 with -3.9 meaning its really, really slow
+     */
+    public abstract float getAttackSpeed();
+
     /*******************************************************************************************************************
      * Sword Mode                                                                                                      *
      *******************************************************************************************************************/
@@ -73,12 +87,22 @@ public abstract class SwordMode implements IForgeRegistryEntry<SwordMode> {
     }
 
     /**
-     * Helper method to ensure damage stays away
-     * @param stack Stack
+     * Gets the name to display about this mode
+     * @return The translated name to display. Used for displaying info
      */
-    public static void verifyStackDamage(ItemStack stack) {
-        if(stack.getItemDamage() > 0)
-            stack.setItemDamage(0);
+    @SuppressWarnings("ConstantConditions")
+    @SideOnly(Side.CLIENT)
+    public String getModeDisplayName() {
+        return ClientUtils.translate(getRegistryName().toString() + ".displayName");
+    }
+
+    /**
+     * Color associated with this mode
+     * @return The color of this mode
+     */
+    @SideOnly(Side.CLIENT)
+    public Color getColor() {
+        return new Color(0, 0, 0);
     }
 
     /*******************************************************************************************************************

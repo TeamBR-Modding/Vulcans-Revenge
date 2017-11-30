@@ -1,6 +1,6 @@
 package com.pauljoda.vulcansrevenge.managers;
 
-import com.pauljoda.vulcansrevenge.common.sword.ItemVulcanSword;
+import com.pauljoda.vulcansrevenge.common.tools.sword.ItemVulcanSword;
 import com.teambr.nucleus.annotation.RegisteringItem;
 
 /**

@@ -53,6 +53,9 @@ public class ClientProxy extends CommonProxy {
     public void init(FMLInitializationEvent event) {
         // Item Models
         VulcansRevenge.registrationData.getItems().forEach(item -> ((IRegisterable<?>)item).registerRender());
+
+        // Keybinding
+        KeybindHandler.getInstance().registerBindings();
     }
 
     /**
