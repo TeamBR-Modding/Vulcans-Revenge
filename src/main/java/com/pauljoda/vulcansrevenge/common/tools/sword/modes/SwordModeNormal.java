@@ -3,8 +3,6 @@ package com.pauljoda.vulcansrevenge.common.tools.sword.modes;
 import com.pauljoda.vulcansrevenge.api.damage.DamageTypes;
 import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
 import com.pauljoda.vulcansrevenge.common.tools.sword.ItemVulcanSword;
-import com.teambr.nucleus.client.gui.GuiColor;
-import com.teambr.nucleus.util.ClientUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
@@ -19,8 +17,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This file was created for VulcansRevenge
@@ -127,28 +123,5 @@ public class SwordModeNormal extends SwordMode {
     @Override
     public Color getColor() {
         return new Color(255, 77, 47);
-    }
-
-    /**
-     * Used to get the tool tip info to provide
-     * <p>
-     * Each object is one line, provide useful info here about the sword mode
-     *
-     * @return A list of strings to display
-     */
-    @Override
-    public List<String> getToolTipInfo() {
-        List<String> toolTip = new ArrayList<>();
-
-        toolTip.add(GuiColor.BLUE +
-                ClientUtils.translate("vulcansrevenge.hiteffect.text"));
-        toolTip.add(GuiColor.LIGHTGRAY + ClientUtils.translate("vulcansrevenge:normal.hitEffect"));
-
-        toolTip.add("");
-        toolTip.add(GuiColor.BLUE +
-                ClientUtils.translate("vulcansrevenge.rightClick.text"));
-        toolTip.add(GuiColor.LIGHTGRAY + ClientUtils.translate("vulcansrevenge:normal.rightClick"));
-
-        return toolTip;
     }
 }

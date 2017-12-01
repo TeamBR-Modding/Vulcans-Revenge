@@ -2,6 +2,7 @@ package com.pauljoda.vulcansrevenge.api.sword;
 
 import com.pauljoda.vulcansrevenge.api.VulcansRevengeAPI;
 import com.pauljoda.vulcansrevenge.lib.Reference;
+import com.teambr.nucleus.client.gui.GuiColor;
 import com.teambr.nucleus.util.ClientUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -115,7 +116,18 @@ public abstract class SwordMode implements IForgeRegistryEntry<SwordMode> {
      */
     @SideOnly(Side.CLIENT)
     public List<String> getToolTipInfo() {
-        return new ArrayList<>();
+        List<String> toolTip = new ArrayList<>();
+
+        toolTip.add(GuiColor.YELLOW +
+                ClientUtils.translate("vulcansrevenge.hiteffect.text"));
+        toolTip.add(GuiColor.LIGHTGRAY + ClientUtils.translate("vulcansrevenge:" + modeName.toLowerCase() + ".hitEffect"));
+
+        toolTip.add("");
+        toolTip.add(GuiColor.YELLOW +
+                ClientUtils.translate("vulcansrevenge.rightClick.text"));
+        toolTip.add(GuiColor.LIGHTGRAY + ClientUtils.translate("vulcansrevenge:" + modeName.toLowerCase() + ".rightClick"));
+
+        return toolTip;
     }
 
     /**
@@ -133,7 +145,6 @@ public abstract class SwordMode implements IForgeRegistryEntry<SwordMode> {
      * @return The translated name to display. Used for displaying info
      */
     @SuppressWarnings("ConstantConditions")
-    @SideOnly(Side.CLIENT)
     public String getModeDisplayName() {
         return ClientUtils.translate(getRegistryName().toString() + ".displayName");
     }

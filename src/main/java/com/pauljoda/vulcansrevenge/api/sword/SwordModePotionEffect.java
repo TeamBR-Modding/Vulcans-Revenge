@@ -1,22 +1,19 @@
-package com.pauljoda.vulcansrevenge.common.tools.sword.modes;
+package com.pauljoda.vulcansrevenge.api.sword;
 
-import com.pauljoda.vulcansrevenge.api.damage.DamageTypes;
 import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
 import com.pauljoda.vulcansrevenge.common.tools.sword.ItemVulcanSword;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +25,19 @@ import java.util.List;
  * http://creativecommons.org/licenses/by-nc-sa/4.0/
  *
  * @author Paul Davis - pauljoda
- * @since 11/28/17
+ * @since 11/30/17
  */
-@SuppressWarnings("ConstantConditions")
-public class SwordModeHeavy extends SwordMode {
+public abstract class SwordModePotionEffect extends SwordMode {
+
+    // Potion
+    protected Potion potion;
 
     /**
      * Main Constructor
      */
-    public SwordModeHeavy() {
-        super("heavy");
+    public SwordModePotionEffect(String name, Potion toApply) {
+        super(name);
+        potion = toApply;
     }
 
     /**
@@ -52,18 +52,16 @@ public class SwordModeHeavy extends SwordMode {
      * @param player The player attacking
      * @return True if action done
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase victim, EntityLivingBase player) {
         ItemVulcanSword.verifyStackTag(stack);
         int charge = stack.getTagCompound().getInteger(ItemVulcanSword.NBT_CHARGE);
-
-        if(charge > 0 && player instanceof EntityPlayer) {
-            victim.attackEntityFrom(
-                    new DamageTypes.EntityDamageSourceVulcan("player", player), 10);
-            ItemVulcanSword.drainSwordCharge(stack, 1);
-        }
-
-        ItemVulcanSword.drainSwordCharge(stack, 20);
+        if (charge > 5)
+            victim.addPotionEffect(new PotionEffect(
+                    potion,
+                    200,
+                    100));
         return true;
     }
 
@@ -75,12 +73,13 @@ public class SwordModeHeavy extends SwordMode {
      * @param handIn   The hand currently in
      * @return Pass or not
      */
+    @SuppressWarnings("ConstantConditions")
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         ItemVulcanSword.verifyStackTag(playerIn.getHeldItem(handIn));
         int charge = playerIn.getHeldItem(handIn).getTagCompound().getInteger(ItemVulcanSword.NBT_CHARGE);
-        if(!worldIn.isRemote && charge > 50) {
-            List<Entity> entitiesInRange = new ArrayList<>();
+        if (!worldIn.isRemote && charge > 10) {
+            List<EntityLiving> entitiesInRange = new ArrayList<>();
             entitiesInRange.addAll(worldIn.getEntitiesWithinAABB(EntityLiving.class,
                     new AxisAlignedBB(
                             playerIn.posX - 5,
@@ -89,41 +88,14 @@ public class SwordModeHeavy extends SwordMode {
                             playerIn.posX + 5,
                             playerIn.posY + 3,
                             playerIn.posZ + 5)));
-            for(Entity mob : entitiesInRange)
-                mob.attackEntityFrom(new DamageTypes.EntityDamageSourceVulcan("player", playerIn), 5);
-            ItemVulcanSword.drainSwordCharge(playerIn.getHeldItem(handIn), 50);
+            for (EntityLiving mob : entitiesInRange)
+                mob.addPotionEffect(new PotionEffect(
+                        potion,
+                        50,
+                        100));
+            ItemVulcanSword.drainSwordCharge(playerIn.getHeldItem(handIn), 10);
             return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
-    }
-
-    /**
-     * The base damage this mode does
-     *
-     * @return Damage done
-     */
-    @Override
-    public int getBaseDamage() {
-        return 40;
-    }
-
-    /**
-     * Get the amount to remove from speed
-     *
-     * @return -3.9 - 0 with -3.9 meaning its really, really slow
-     */
-    @Override
-    public float getAttackSpeed() {
-        return -3.5F;
-    }
-
-    /**
-     * Color associated with this mode
-     * @return The color of this mode
-     */
-    @SideOnly(Side.CLIENT)
-    @Override
-    public Color getColor() {
-        return new Color(47, 0, 255);
     }
 }

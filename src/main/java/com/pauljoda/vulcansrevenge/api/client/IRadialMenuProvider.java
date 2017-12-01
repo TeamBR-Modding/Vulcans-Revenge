@@ -19,13 +19,13 @@ import java.util.List;
  * @author Paul Davis - pauljoda
  * @since 11/29/17
  */
-@SideOnly(Side.CLIENT)
 public interface IRadialMenuProvider<T extends IForgeRegistryEntry<T>> {
 
     /**
      * Returns the class for the registry that populates the radial menu
      * @return The registry class, eg SwordMode.class
      */
+    @SideOnly(Side.CLIENT)
     Class<T> getRegistryClass();
 
     /**
@@ -33,6 +33,7 @@ public interface IRadialMenuProvider<T extends IForgeRegistryEntry<T>> {
      * @param entry The entry
      * @return Display name, translated
      */
+    @SideOnly(Side.CLIENT)
     String getDisplayNameForEntry(Object entry);
 
     /**
@@ -40,6 +41,7 @@ public interface IRadialMenuProvider<T extends IForgeRegistryEntry<T>> {
      * @param entry The entry
      * @return The color to display
      */
+    @SideOnly(Side.CLIENT)
     Color getDisplayColorForEntry(Object entry);
 
     /**
@@ -47,12 +49,14 @@ public interface IRadialMenuProvider<T extends IForgeRegistryEntry<T>> {
      * @param entry The entry
      * @return The stack to return or EMPTY for none
      */
+    @SideOnly(Side.CLIENT)
     ItemStack getDisplayStackForEntry(Object entry);
 
     /**
      * Called when the user clicks this mode
      * @param entry The object clicked
      */
+    @SideOnly(Side.CLIENT)
     void objectClicked(ItemStack stack, Object entry);
 
     /**
@@ -60,6 +64,7 @@ public interface IRadialMenuProvider<T extends IForgeRegistryEntry<T>> {
      * @param entry Entry
      * @return  A tool tip list to disply on right side of screen
      */
+    @SideOnly(Side.CLIENT)
     default List<String> getTooltip(Object entry) {
         return new ArrayList<String>();
     }

@@ -18,10 +18,15 @@ vulcansrevenge:normal.rightClick=Fires a fireball if you have more than 8 hearts
 
 vulcansrevenge:heavy.displayName=Heavy
 vulcansrevenge:heavy.hitEffect=Deals massive damage, but uses a lot of power
-vulcansrevenge:normal.rightClick=Hits enemies all around you at a large power cost
+vulcansrevenge:normal.rightClick=Hits entities all around you at a large power cost
 
 vulcansrevenge:frost.displayName=Frost
+vulcansrevenge:frost.hitEffect=Freezes entities in their replace
+vulcansrevenge:frost.rightClick=Freezes entities around you for a couple seconds
+
 vulcansrevenge:wither.displayName=Wither
+vulcansrevenge:wither.hitEffect=Withers entity
+vulcansrevenge:wither.rightClick=Withers entities around for a couple seconds
 
 vulcansrevenge.owner.text=Owner:
 vulcansrevenge.unknown.text=Unknown

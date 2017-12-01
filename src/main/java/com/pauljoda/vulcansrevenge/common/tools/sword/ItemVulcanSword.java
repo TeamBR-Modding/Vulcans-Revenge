@@ -33,6 +33,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -230,13 +231,13 @@ public class ItemVulcanSword extends ItemSword implements IRegisterable<Item>, I
         int charge = stack.getTagCompound().getInteger(NBT_CHARGE);
         int oneQuarter = MAX_CHARGE / 4;
         if (charge > oneQuarter * 3)
-            return new Color(71, 255, 20).getRGB();
+            return getSwordMode(stack).getColor().getRGB();
         else if (charge > oneQuarter * 2)
-            return new Color(255, 155, 0).getRGB();
+            return getSwordMode(stack).getColor().darker().getRGB();
         else
-            return new Color(255, 0, 14).getRGB();
+            return getSwordMode(stack).getColor().darker().darker().getRGB();
     }
-
+    
     /*******************************************************************************************************************
      * Helper Methods                                                                                                  *
      *******************************************************************************************************************/
