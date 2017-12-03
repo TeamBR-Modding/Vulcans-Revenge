@@ -43,7 +43,7 @@ public class VulcansRevenge {
     public static VulcansRevenge INSTANCE;
 
     // Registration Data
-    public static RegistrationData registrationData = new RegistrationData(Reference.MOD_NAME);
+    public static RegistrationData registrationData = new RegistrationData(Reference.MOD_ID);
 
     // Proxy
     @SidedProxy(

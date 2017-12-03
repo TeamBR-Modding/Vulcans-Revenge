@@ -12,6 +12,7 @@ import com.pauljoda.vulcansrevenge.registry.VulcanRegistries;
 import com.teambr.nucleus.annotation.IRegisterable;
 import com.teambr.nucleus.client.gui.GuiColor;
 import com.teambr.nucleus.common.IAdvancedToolTipProvider;
+import com.teambr.nucleus.helper.ItemRenderHelper;
 import com.teambr.nucleus.util.ClientUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -358,7 +359,7 @@ public class ItemVulcanSword extends ItemSword implements IRegisterable<Item>, I
      */
     @Override
     public void registerRender() {
-
+        ItemRenderHelper.registerItem(this);
     }
 
     /*******************************************************************************************************************
