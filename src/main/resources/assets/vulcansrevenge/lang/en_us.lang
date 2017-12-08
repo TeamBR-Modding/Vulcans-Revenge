@@ -5,6 +5,8 @@ itemGroup.vulcans_revenge:tools=Vulcan's Tools
 # Blocks
 #######################
 
+tile.vulcansrevenge:block_sword_pedestal.name=Sword Pedestal
+
 #######################
 # Items
 #######################

@@ -2,7 +2,9 @@ package com.pauljoda.vulcansrevenge.client;
 
 import com.pauljoda.vulcansrevenge.VulcansRevenge;
 import com.pauljoda.vulcansrevenge.client.model.ModelVulcanSword;
+import com.pauljoda.vulcansrevenge.client.renderers.tile.TileRendererSwordPedestal;
 import com.pauljoda.vulcansrevenge.common.CommonProxy;
+import com.pauljoda.vulcansrevenge.common.tools.sword.tile.TileSwordPedestal;
 import com.pauljoda.vulcansrevenge.event.TextureEvents;
 import com.pauljoda.vulcansrevenge.managers.EventManager;
 import com.pauljoda.vulcansrevenge.managers.ToolManager;
@@ -11,6 +13,7 @@ import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.item.ItemMap;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -52,10 +55,14 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init(FMLInitializationEvent event) {
         // Item Models
-        VulcansRevenge.registrationData.getItems().forEach(item -> ((IRegisterable<?>)item).registerRender());
+        VulcansRevenge.registrationData.getItems().forEach (item -> ((IRegisterable<?>)item).registerRender());
+        VulcansRevenge.registrationData.getBlocks().forEach(item -> ((IRegisterable<?>)item).registerRender());
 
         // Keybinding
         KeybindHandler.getInstance().registerBindings();
+
+        // Tiles
+        ClientRegistry.bindTileEntitySpecialRenderer(TileSwordPedestal.class, new TileRendererSwordPedestal<>());
     }
 
     /**

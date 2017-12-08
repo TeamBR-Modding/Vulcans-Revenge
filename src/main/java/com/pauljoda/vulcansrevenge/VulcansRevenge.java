@@ -2,11 +2,10 @@ package com.pauljoda.vulcansrevenge;
 
 import com.pauljoda.vulcansrevenge.api.sword.SwordMode;
 import com.pauljoda.vulcansrevenge.common.CommonProxy;
-import com.pauljoda.vulcansrevenge.managers.EventManager;
+import com.pauljoda.vulcansrevenge.managers.*;
 import com.pauljoda.vulcansrevenge.lib.Reference;
-import com.pauljoda.vulcansrevenge.managers.PacketManager;
-import com.pauljoda.vulcansrevenge.managers.ToolManager;
 import com.pauljoda.vulcansrevenge.registry.VulcanRegistries;
+import com.pauljoda.vulcansrevenge.world.WorldGenSwordAlter;
 import com.teambr.nucleus.data.RegistrationData;
 import com.teambr.nucleus.helper.RegistrationHelper;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,10 +16,13 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
+
+import java.io.File;
 
 /**
  * This file was created for VulcansRevenge
@@ -42,6 +44,8 @@ public class VulcansRevenge {
     @Mod.Instance
     public static VulcansRevenge INSTANCE;
 
+    public static String configFolderLocation;
+
     // Registration Data
     public static RegistrationData registrationData = new RegistrationData(Reference.MOD_ID);
 
@@ -61,6 +65,9 @@ public class VulcansRevenge {
 
     @Mod.EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
+        configFolderLocation = event.getModConfigurationDirectory().getAbsolutePath() + File.separator + "VulcansRevenge";
+        ConfigManager.preInit();
+
         RegistrationHelper.fillRegistrationData(event, registrationData);
 
         // Create Registries
@@ -71,6 +78,7 @@ public class VulcansRevenge {
                         .setType(SwordMode.class).create();
 
         EventManager.registerEvents(event.getSide());
+        WorldGenManager.preInit();
         proxy.preInit(event);
     }
 
