@@ -1,15 +1,12 @@
 package com.pauljoda.vulcansrevenge.client.renderers.tile;
 
 import com.pauljoda.vulcansrevenge.common.tools.sword.tile.TileSwordPedestal;
-import com.pauljoda.vulcansrevenge.managers.ToolManager;
-import com.teambrmodding.assistedprogression.managers.ItemManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 /**
