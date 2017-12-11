@@ -48,7 +48,7 @@ public class WorldGenSwordAlter implements IWorldGenerator {
     @SuppressWarnings("ConstantConditions")
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-        if(random.nextInt(100) == 50) {
+        if(random.nextInt(1000) == 50) {
             if (ArrayUtils.contains(ConfigManager.sword_alter_dimensions.getIntList(), world.provider.getDimension())) {
                 int x = chunkX * 16;
                 int z = chunkZ * 16;
