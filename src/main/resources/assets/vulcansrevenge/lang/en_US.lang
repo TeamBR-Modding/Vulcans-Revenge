@@ -51,6 +51,8 @@ vulcansrevenge.rightClick.text=Right Click:
 
 vulcansrevenge.text.radialMenuKey=Tool Mode Menu
 
+vulcansrevenge.vulcan.greeting=<Vulcan> Greetings #playerName, place an Iron Sword on the pedestal to begin my challenge
+
 #######################
 # Commands
 #######################

@@ -1,8 +1,23 @@
 package com.pauljoda.vulcansrevenge.common.tools.sword.tile;
 
 import com.teambr.nucleus.common.tiles.InventoryHandler;
+import com.teambr.nucleus.util.ClientUtils;
+import com.teambr.nucleus.util.TimeUtils;
+import net.minecraft.command.CommandTitle;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.network.play.server.SPacketTitle;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextComponentString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This file was created for VulcansRevenge
@@ -15,6 +30,68 @@ import net.minecraft.item.ItemStack;
  * @since 12/8/17
  */
 public class TileSwordPedestal extends InventoryHandler {
+
+    /*******************************************************************************************************************
+     * Variables                                                                                                       *
+     *******************************************************************************************************************/
+
+    // Range
+    private static final int RADIUS = 15;
+
+    // Players Visited
+    private List<String> playersGreeted = new ArrayList<>();
+
+    // Players in area
+    private List<EntityPlayer> players = new ArrayList<>();
+
+    /*******************************************************************************************************************
+     * UpdatingTile                                                                                                    *
+     *******************************************************************************************************************/
+
+    @Override
+    protected void onServerTick() {
+        super.onServerTick();
+        updatePlayerList();
+
+        // Greet new players
+        greetNewPlayers();
+    }
+
+    /*******************************************************************************************************************
+     * Helpers                                                                                                         *
+     *******************************************************************************************************************/
+
+    /**
+     * Updates the list of players to those within range
+     */
+    private void updatePlayerList() {
+        players = world.getPlayers(EntityPlayer.class,
+                player ->
+                        player != null
+                                && player.getDistance(pos.getX(), pos.getY(), pos.getZ()) < RADIUS + 1
+                                && player.posY < pos.getY() + 3);
+    }
+
+    /**
+     * Greets players that have not seen this alter
+     */
+    private void greetNewPlayers() {
+        players.forEach(
+                player -> {
+                    if (!playersGreeted.contains(player.getDisplayNameString())) {
+                        player.sendMessage(new TextComponentString(
+                                ClientUtils.translate("vulcansrevenge.vulcan.greeting")
+                                        .replaceAll("#playerName", player.getDisplayNameString())));
+                        playersGreeted.add(player.getDisplayNameString());
+                    }
+                }
+        );
+    }
+
+    /*******************************************************************************************************************
+     * InventoryHandler                                                                                                *
+     *******************************************************************************************************************/
+
     /**
      * The initial size of the inventory
      *
@@ -40,6 +117,33 @@ public class TileSwordPedestal extends InventoryHandler {
     @Override
     protected void onInventoryChanged(int slot) {
         markForUpdate(6);
+    }
+
+    /*******************************************************************************************************************
+     * Syncable                                                                                                        *
+     *******************************************************************************************************************/
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        // Get greeted players
+        NBTTagList playersGreetedList = compound.getTagList("GreetedPlayers", 10);
+        playersGreeted.clear();
+        playersGreetedList.forEach(tag -> playersGreeted.add(((NBTTagString) tag).getString()));
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
+
+        // Add greeted players
+        NBTTagList playersGreetedList = new NBTTagList();
+        for (String name : playersGreeted)
+            playersGreetedList.appendTag(new NBTTagString(name));
+        compound.setTag("GreetedPlayers", playersGreetedList);
+
+        return compound;
     }
 
     /**
